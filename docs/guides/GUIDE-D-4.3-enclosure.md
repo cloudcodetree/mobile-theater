@@ -1,42 +1,125 @@
-# D-4.3 Speaker Pod Enclosure
+# Implementation Guide: D-4.3 Speaker Pod Enclosure
 
 ## Overview
-**Time:** 6-10 hours | **Cost:** $40 | **Skill:** Intermediate
+**Time Estimate:** 8-12 hours | **Cost:** $40 | **Depends On:** D-4.2
 
-## Design Specs
-- Internal volume: 2-3L for 4" driver
-- Dimensions: 150×150×200mm (6"×6"×8")
-- Material: PETG (3D print) or MDF
+---
 
-## Internal Layout
+## Design Requirements
+| Requirement | Target |
+|-------------|--------|
+| Internal volume | 2-3 liters |
+| Driver cutout | 4" (102mm) |
+| Weight | <2kg empty |
+| Weather resistance | IPX4 (splash proof) |
+| Mounting | 35mm pole adapter |
+
+## Enclosure Dimensions
 ```
-┌─────────────────────┐
-│   [4" DRIVER]       │ ← Front, sealed
-│                     │
-│  [ESP32] [AMP]      │ ← Middle
-│                     │
-│  [BATTERY PACK]     │ ← Bottom
-│  [PWR][CHG][LED]    │ ← Rear panel
-└─────────────────────┘
+┌─────────────────────────────────┐
+│                                 │
+│   Height: 200mm (8")            │
+│   Width:  150mm (6")            │
+│   Depth:  150mm (6")            │
+│                                 │
+│   Internal Volume: ~2.5L        │
+│   Wall Thickness: 3-5mm         │
+│                                 │
+└─────────────────────────────────┘
 ```
 
-## Build Steps
-1. Print/build enclosure (PETG, 0.2mm layers, 30% infill)
-2. Install driver with foam gasket
-3. Mount ESP32+DAC and amp
-4. Install battery with foam padding
-5. Wire all components
-6. Seal and test for air leaks
+## Layout (Cross Section)
+```
+┌─────────────────────────┐
+│ ╔═══════════════════╗   │ ← Driver
+│ ║                   ║   │   (front baffle)
+│ ║     ACOUSTIC      ║   │
+│ ║      VOLUME       ║   │
+│ ║                   ║   │
+│ ╚═══════════════════╝   │
+│ ┌─────┬───────┬─────┐   │
+│ │ESP32│  Amp  │Batt │   │ ← Electronics
+│ └─────┴───────┴─────┘   │   (rear compartment)
+│ [PWR][LED]  [CHARGE]    │ ← Controls
+└─────────────────────────┘
+```
 
-## Stand Mount
-- 1/4"-20 threaded insert (camera mount standard)
-- Or 35mm pole socket for speaker stands
+## Build Options
 
-## Checklist
-- [ ] Enclosure complete
-- [ ] Driver sealed
-- [ ] Electronics mounted
-- [ ] Battery installed
-- [ ] Stand mount ready
+### Option A: 3D Printed (Recommended)
+- Material: PETG (strong, weather resistant)
+- Infill: 30%+
+- Wall: 3 perimeters
+- Print time: ~20 hours
+- Files: See /cad folder
 
-→ Proceed to D-4.4
+### Option B: Wood/MDF
+- 12mm MDF
+- Wood glue + screws
+- Seal with exterior paint
+- More work but better acoustics
+
+### Option C: Modify Existing
+- Ammo can (surplus)
+- Food storage container
+- Commercial speaker cabinet
+
+## Acoustic Considerations
+- Sealed enclosure (simpler, smaller)
+- Add polyfill for acoustic damping
+- Seal all joints with silicone
+- Gasket around driver
+
+## Driver Mounting
+```
+Front Baffle Detail:
+
+        ┌───────────────────┐
+        │   ○   ○   ○   ○   │  ← Screw holes
+        │ ┌─────────────┐   │
+        │ │             │   │
+        │ │   DRIVER    │   │  ← 102mm cutout
+        │ │             │   │
+        │ └─────────────┘   │
+        │   ○   ○   ○   ○   │
+        └───────────────────┘
+        
+- Use T-nuts or threaded inserts
+- Add foam gasket
+- Screws: M4 × 20mm
+```
+
+## Electronics Compartment
+- Separate from acoustic volume
+- Accessible panel for maintenance
+- Ventilation holes (covered with mesh)
+- Cable glands for waterproofing
+
+## 3D Print Files
+```
+/cad/speaker-pod/
+├── body-main.stl
+├── front-baffle.stl
+├── rear-cover.stl
+├── pole-mount.stl
+└── speaker-pod.f3d  (Fusion 360 source)
+```
+
+## Assembly Order
+1. Print/build enclosure parts
+2. Install threaded inserts
+3. Test fit all electronics
+4. Mount driver (with gasket)
+5. Wire all electronics
+6. Add polyfill to acoustic volume
+7. Seal electronics compartment
+8. Final assembly
+
+## Success Criteria
+- [ ] All components fit
+- [ ] Driver sealed properly
+- [ ] Electronics accessible
+- [ ] Pole mount secure
+- [ ] Weather resistant
+
+**→ Proceed to D-4.4**

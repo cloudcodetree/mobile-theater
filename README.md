@@ -2,19 +2,13 @@
 
 > Military-grade portable 7.1 wireless surround sound theater system
 
-[![Project Status](https://img.shields.io/badge/status-Phase_1-yellow)]()
+[![Status](https://img.shields.io/badge/status-Phase_1-yellow)]()
 [![Budget](https://img.shields.io/badge/budget-$2,655-green)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 ## Overview
 
-A fully portable, battery-powered 7.1 surround sound theater system featuring:
-
-- **Wireless speaker pods** with ESP32 mesh networking
-- **Self-contained batteries** in each speaker (3+ hour runtime)
-- **Multi-source input** (PS5, Xbox, Apple TV, Blu-ray)
-- **Sub-80ms latency** end-to-end
-- **Outdoor optimized** (no ceiling required)
+A fully portable, battery-powered 7.1 surround sound theater featuring wireless ESP32 speaker pods, self-contained batteries, and sub-80ms latency.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -41,7 +35,29 @@ A fully portable, battery-powered 7.1 surround sound theater system featuring:
 | Latency | <80ms |
 | Runtime | 3+ hours |
 
-## Project Phases
+## Project Structure
+
+```
+mobile-theater/
+├── .github/           # Issue templates, workflows
+├── docs/
+│   ├── phases/        # Phase milestone docs
+│   ├── deliverables/  # Individual work items
+│   ├── specs/         # Component specifications
+│   └── tests/         # Test reports
+├── bom/               # Bills of materials
+├── builds/            # Build logs per unit
+├── firmware/
+│   ├── tx/            # Master transmitter code
+│   └── rx/            # Satellite receiver code
+├── hardware/          # Schematics, PCB designs
+├── cad/               # Enclosure designs
+├── templates/         # Document templates
+├── resources/         # Reference materials
+└── diagrams/          # System diagrams
+```
+
+## Phases
 
 | Phase | Description | Budget | Status |
 |-------|-------------|--------|--------|
@@ -53,72 +69,24 @@ A fully portable, battery-powered 7.1 surround sound theater system featuring:
 | 6 | Case Integration | $350 | ⚪ Pending |
 | 7 | Calibration & Testing | $50 | ⚪ Pending |
 
-## Repository Structure
-
-```
-mobile-theater/
-├── docs/
-│   ├── phases/          # Phase milestone documents
-│   ├── deliverables/    # Individual work items
-│   ├── specs/           # Component specifications
-│   └── tests/           # Test reports
-├── bom/                 # Bills of materials
-├── builds/              # Build logs per unit
-├── firmware/            # ESP32 source code
-│   ├── src/
-│   └── lib/
-├── hardware/            # Schematics, PCB designs
-│   ├── schematics/
-│   └── pcb/
-├── cad/                 # Enclosure designs
-│   ├── enclosures/
-│   └── mounts/
-├── templates/           # Document templates
-├── resources/           # Reference materials
-└── diagrams/            # System diagrams
-```
-
 ## Getting Started
 
-### Phase 1: Wireless Proof of Concept
+1. Review [Phase 1 Documentation](docs/phases/PHASE-1.md)
+2. Order parts from [Phase 1 BOM](bom/BOM-phase-1.md)
+3. Follow deliverables in order (D-1.1 → D-1.2 → D-1.3)
 
-1. Order parts from [Phase 1 BOM](bom/BOM-phase-1.md)
-2. Set up ESP32 development environment
-3. Flash TX/RX firmware
-4. Test audio streaming latency
+## Speaker Pod Architecture
 
-See [D-1.1: Dev Environment Setup](docs/deliverables/D-1.1-dev-environment.md) for details.
-
-## Documentation
-
-- [Master Wiki](docs/WIKI.md) — Central documentation hub
-- [Video Tutorials](resources/VIDEO_TUTORIALS.md) — Curated learning resources
-- [Chat Log](docs/CHAT_LOG.md) — Project discussion history
-
-## Hardware
-
-### Speaker Pod Architecture
+Each wireless speaker pod contains:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  ESP32-S3 RX → I2S → PCM5102A DAC → TPA3116 Amp → 4" Driver    │
-│      ▲                                                          │
-│      └── 3S LiFePO4 Battery (3+ hrs) + BMS + Buck Converter    │
+│  [ESP32-S3] → [I2S] → [PCM5102A DAC] → [TPA3116 Amp] → [Driver] │
+│       ▲                                                         │
+│       └── [3S LiFePO4 9.6V] → [BMS] → [5V Buck]                │
 └─────────────────────────────────────────────────────────────────┘
-```
-
-### Command Module
-
-```
-[HDMI Sources] → [4×1 Switch] → [Audio Extractor] → [Pi 5] → [ESP32 TX]
-                      │
-                      └──→ [4K Projector]
 ```
 
 ## License
 
 MIT License - See [LICENSE](LICENSE) for details.
-
-## Contributing
-
-This is a personal build project. Issues and suggestions welcome!

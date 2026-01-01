@@ -1,21 +1,19 @@
 ---
 name: Deliverable
-about: A discrete work item with acceptance criteria
-title: 'D-X.Y: '
+about: A specific task or milestone to complete
+title: '[D-X.X] '
 labels: deliverable
 assignees: ''
 ---
 
-## Overview
+## Description
+<!-- Brief description of what needs to be accomplished -->
 
-**Phase:** X  
-**Estimated Cost:** $XX  
-**Dependencies:** None / D-X.Y  
-
-Brief description of the deliverable.
+## Phase
+<!-- Which phase does this belong to? -->
+Phase X: 
 
 ## Acceptance Criteria
-
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3
@@ -24,31 +22,32 @@ Brief description of the deliverable.
 
 | Item | Qty | Unit Price | Total | Source | Status |
 |------|-----|------------|-------|--------|--------|
-| Component | 1 | $10.00 | $10.00 | Amazon | ⬜ |
-| **Total** | | | **$10.00** | | |
+| Item 1 | 1 | $X.XX | $X.XX | Amazon | ⬜ |
+
+**Deliverable Total:** $X.XX
 
 ## Tasks
-
 - [ ] Task 1
 - [ ] Task 2
 - [ ] Task 3
 
 ## Technical Notes
-
-Add wiring diagrams, pinouts, code snippets, etc.
+<!-- Wiring diagrams, code snippets, pinouts, etc. -->
 
 ## Test Procedure
-
 1. Step 1
 2. Step 2
-3. Verify result
+3. Step 3
 
-## References
+## Expected Results
 
-- [Datasheet](url)
-- [Tutorial](url)
+| Metric | Target | Actual |
+|--------|--------|--------|
+| Metric 1 | Value | — |
 
 ## Work Log
-
 ### YYYY-MM-DD
 - Progress notes
+
+## References
+- [Link 1](url)

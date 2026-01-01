@@ -1,93 +1,100 @@
-# D-7.2 System Calibration
+# Implementation Guide: D-7.2 System Calibration
 
 ## Overview
-**Time:** 3-4 hours | **Cost:** $0 | **Skill:** Intermediate
+**Time Estimate:** 4-6 hours | **Cost:** $0 | **Depends On:** D-7.1
+
+---
 
 ## Calibration Steps
 
-### 1. Level Matching
-Match all speakers to same SPL reference.
+### Step 1: Level Matching
+Set all speakers to same SPL at listening position.
 
-```
-Procedure:
-1. Set all amp gains to minimum
-2. Play pink noise on FL
-3. Adjust FL to 75dB at mic
-4. Repeat for each speaker
-5. Document gain settings
+1. Play pink noise on FL
+2. Measure SPL with UMIK-1 (target: 75dB)
+3. Adjust amp gain
+4. Repeat for each speaker:
 
-| Channel | Gain Setting | SPL |
-|---------|--------------|-----|
-| FL | | 75dB |
-| FR | | 75dB |
-| C | | 75dB |
-| SL | | 75dB |
-| SR | | 75dB |
-| RL | | 75dB |
-| RR | | 75dB |
-| SUB | | 75dB |
-```
+| Channel | Target | Measured | Adjustment |
+|---------|--------|----------|------------|
+| FL | 75dB | | |
+| FR | 75dB | | |
+| C | 75dB | | |
+| SL | 75dB | | |
+| SR | 75dB | | |
+| RL | 75dB | | |
+| RR | 75dB | | |
+| SUB | 75dB | | |
 
-### 2. Distance Compensation
-Add delay to closer speakers.
+### Step 2: Distance/Delay
+Measure distance from each speaker to MLP:
 
-```
-Measure distances:
 | Channel | Distance | Delay (ms) |
 |---------|----------|------------|
 | FL | ___m | |
 | FR | ___m | |
 | C | ___m | |
-| ... | | |
+| SL | ___m | |
+| SR | ___m | |
+| RL | ___m | |
+| RR | ___m | |
+| SUB | ___m | |
 
-Formula:
+```
+Delay formula:
 delay_ms = (max_distance - this_distance) / 0.343
-
-Example: Max=4m, this=3m
-delay = (4-3)/0.343 = 2.9ms
 ```
 
-### 3. Subwoofer Integration
+### Step 3: Frequency Response
+For each speaker:
+1. Run REW frequency sweep
+2. Observe response curve
+3. Note any major problems
+
 ```
+Ideal response: Flat ±3dB from 80Hz-16kHz
+Satellites likely: Roll-off below 100Hz (OK)
+Subwoofer: Response 30-80Hz
+```
+
+### Step 4: Subwoofer Integration
 1. Set sub crossover to 80Hz
-2. Play sweep from 60-100Hz
-3. Check for dip or peak at crossover
-4. Adjust sub phase (0° or 180°)
-5. Fine-tune sub level (+/- 3dB)
+2. Play sweep, measure response
+3. Check for gap or overlap at crossover
+4. Try sub phase 0° vs 180°
+5. Choose setting with smoothest response
+
+### Step 5: Apply EQ (Optional)
+If firmware supports it, apply corrections:
+```cpp
+// Simple 3-band EQ
+#define BASS_GAIN 0.0    // dB
+#define MID_GAIN  0.0    // dB
+#define TREBLE_GAIN 0.0  // dB
 ```
 
-### 4. Frequency Response
-```
-Per speaker:
-1. Run REW sweep (20Hz-20kHz)
-2. Export measurement
-3. Note peaks/dips
-4. Optional: Apply EQ correction
-```
-
-## Saving Calibration
-Document all settings:
+## Save Configuration
+Document all settings for reproducibility:
 ```
 PELICAN CINEMA CALIBRATION
-Date: _______________
-Location: _______________
+Date: ________
 
-LEVELS (amp gain position):
-FL: ___ FR: ___ C: ___
-SL: ___ SR: ___
-RL: ___ RR: ___
-SUB: ___
+Levels (dB):
+FL: ___ FR: ___ C: ___ SL: ___
+SR: ___ RL: ___ RR: ___ SUB: ___
 
-DELAYS (firmware values):
-FL: ___ms FR: ___ms C: ___ms
-SL: ___ms SR: ___ms
-RL: ___ms RR: ___ms
-SUB: ___ms
+Delays (ms):
+FL: ___ FR: ___ C: ___ SL: ___
+SR: ___ RL: ___ RR: ___ SUB: ___
 
-SUB SETTINGS:
-Crossover: 80Hz
-Phase: 0° / 180°
-Level trim: ___dB
+Sub Phase: 0° / 180°
+Sub Crossover: ___Hz
 ```
 
-→ Proceed to D-7.3 (Field Test)
+## Success Criteria
+- [ ] All channels within ±2dB
+- [ ] Delays compensated
+- [ ] Smooth crossover with sub
+- [ ] No major frequency anomalies
+
+**→ Proceed to D-7.3**
